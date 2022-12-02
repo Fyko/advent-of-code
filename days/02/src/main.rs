@@ -14,12 +14,12 @@ pub const WIN_POINTS: u8 = 6;
 fn main() -> anyhow::Result<()> {
 	match part_one() {
 		Ok(res) => println!("Day 02, part 1: {:#?}", res),
-		Err(e) => panic!("Day 02, part 1 paniced: {}", e),
+		Err(e) => panic!("Day 02, part 1 panicked: {}", e),
 	}
 
 	match part_two() {
 		Ok(res) => println!("Day 02, part 2: {:#?}", res),
-		Err(e) => panic!("Day 02, part 2 paniced: {}", e),
+		Err(e) => panic!("Day 02, part 2 panicked: {}", e),
 	}
 
 	Ok(())

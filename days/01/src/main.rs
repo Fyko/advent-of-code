@@ -4,12 +4,12 @@ use std::collections::HashMap;
 fn main() -> Result<()> {
 	match day_01_p1() {
 		Ok(res) => println!("Day 01, part 1: {:#?}", res),
-		Err(e) => panic!("Day 01, part 1 paniced: {}", e),
+		Err(e) => panic!("Day 01, part 1 panicked: {}", e),
 	}
 
 	match day_01_p2() {
 		Ok(res) => println!("Day 01, part 2: {:#?}", res),
-		Err(e) => panic!("Day 01, part 2 paniced: {}", e),
+		Err(e) => panic!("Day 01, part 2 panicked: {}", e),
 	}
 
 	Ok(())
