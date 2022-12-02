@@ -1,4 +1,4 @@
-# aoc
+# advent-of-codes
 > my aoc solutions  
 
-`cargo run xx` (`cargo run 01`)
+`cargo run --bin day-xx`
