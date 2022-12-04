@@ -19,9 +19,7 @@ fn part_one() -> Result<u32> {
 
 	let priority = data
 		.lines()
-		.map(|line| {
-			line.split_at(line.chars().count() / 2)
-		})
+		.map(|line| line.split_at(line.chars().count() / 2))
 		.map(|parts| find_common_char(&vec![parts.0, parts.1]))
 		.map(char_to_priority)
 		.sum();
@@ -57,6 +55,6 @@ fn char_to_priority(letter: char) -> u32 {
 	match letter {
 		'A'..='Z' => 27 + (letter as u32) - ('A' as u32),
 		'a'..='z' => 1 + (letter as u32) - ('a' as u32),
-		_ => unreachable!("uhh..")
+		_ => unreachable!("uhh.."),
 	}
 }
