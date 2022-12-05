@@ -1,5 +1,6 @@
 #![feature(drain_filter)]
 use anyhow::Result;
+use regex::Regex;
 use std::{
 	str::FromStr,
 };
@@ -31,13 +32,17 @@ struct Instruction {
 	to: u8,
 }
 
+lazy_static::lazy_static! {
+	static ref STACK_REGEX: Regex = regex::Regex::new(r"\[([A-Z])\]").unwrap();
+	static ref INSTRUCTION_REGEX: Regex = regex::Regex::new(r"move (\d+) from (\d+) to (\d+)").unwrap();
+}
+
 impl FromStr for Instruction {
 	type Err = anyhow::Error;
 
 	fn from_str(s: &str) -> Result<Self, Self::Err> {
 		// match the instruction "move $count from $from to $to"
-		let re = regex::Regex::new(r"move (\d+) from (\d+) to (\d+)")?;
-		let caps = re
+		let caps = INSTRUCTION_REGEX
 			.captures(s)
 			.ok_or(anyhow::anyhow!("Invalid instruction"))?;
 
@@ -54,12 +59,12 @@ fn parse_input() -> (Vec<Vec<String>>, Vec<Instruction>) {
 	let mut input = input.collect::<Vec<&str>>();
 
 	let crates = input.drain(0..8).rev().collect::<Vec<&str>>();
-	let re1 = regex::Regex::new(r"\[([A-Z])\]").unwrap();
-	let stack_count = re1.captures_iter(crates[0]).count();
+	
+	let stack_count = STACK_REGEX.captures_iter(crates[0]).count();
 	let mut stacks = vec![Vec::new(); stack_count];
 
 	for line in crates {
-		for cap in re1.captures_iter(line) {
+		for cap in STACK_REGEX.captures_iter(line) {
 			let value = cap.get(1).unwrap().as_str();
 			let index = (cap.get(1).unwrap().start() as i32 / 4).abs();
 			stacks[index as usize].push(value.to_string());
