@@ -4,7 +4,7 @@ const DATA: &str = include_str!("./input.txt");
 
 fn main() {
 	println!("Day 06, part 1: {}", find_packet_start(DATA, 4));
-	println!("Day 06, part 1: {}", find_packet_start(DATA, 14));
+	println!("Day 06, part 2: {}", find_packet_start(DATA, 14));
 }
 
 fn find_packet_start(data: &str, size: usize) -> usize {
