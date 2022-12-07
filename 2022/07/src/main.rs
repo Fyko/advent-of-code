@@ -1,5 +1,3 @@
-#![feature(box_into_inner)]
-
 use std::collections::VecDeque;
 
 static INPUT: &str = include_str!("input.txt");
@@ -26,7 +24,7 @@ fn part2(input: &'static str) -> usize {
 }
 
 fn parse_dirs(input: &'static str) -> Vec<usize> {
-    let root = Box::new(Element::from(input));
+    let root = Element::from(input);
 
     let mut dirs = Vec::new();
     walk(&root, &mut dirs);
@@ -35,7 +33,7 @@ fn parse_dirs(input: &'static str) -> Vec<usize> {
     dirs
 }
 
-fn walk(node: &Box<Element>, dirs: &mut Vec<usize>) {
+fn walk(node: &Element, dirs: &mut Vec<usize>) {
     dirs.push(node.size());
 
     for sub in node.subdirs().unwrap() {
@@ -51,7 +49,7 @@ enum Command {
 
 #[derive(Debug)]
 enum Element {
-    Dir(Vec<Box<Element>>),
+    Dir(Vec<Element>),
     File(usize),
 }
 
@@ -70,7 +68,7 @@ impl Element {
         }
     }
 
-    fn subdirs(&self) -> Option<Vec<&Box<Element>>> {
+    fn subdirs(&self) -> Option<Vec<&Element>> {
         match self {
             Element::Dir(contents) => Some(contents.iter().filter(|e| e.is_dir()).collect()),
             Element::File(_) => None,
@@ -90,13 +88,13 @@ impl From<&'static str> for Element {
             })
             .collect::<VecDeque<_>>();
 
-        fn handle_cmd(commands: &mut VecDeque<Command>) -> Vec<Box<Element>> {
+        fn handle_cmd(commands: &mut VecDeque<Command>) -> Vec<Element> {
             let mut cwd = Vec::new();
 
             while let Some(cmd) = commands.pop_front() {
                 match cmd {
                     Command::Cd(path) if path == ".." => return cwd,
-                    Command::Cd(_) => cwd.push(Box::new(Element::Dir(handle_cmd(commands)))),
+                    Command::Cd(_) => cwd.push(Element::Dir(handle_cmd(commands))),
                     Command::Ls(listing) => {
                         for file in listing.iter().filter_map(|l| {
                             let (a, _) = l.split_once(' ').unwrap();
@@ -106,7 +104,7 @@ impl From<&'static str> for Element {
                                 None
                             }
                         }) {
-                            cwd.push(Box::new(file));
+                            cwd.push(file);
                         }
                     }
                 }
@@ -116,6 +114,6 @@ impl From<&'static str> for Element {
         }
 
         let mut elements = handle_cmd(&mut commands);
-        Box::into_inner(elements.remove(0))
+        elements.remove(0)
     }
 }
