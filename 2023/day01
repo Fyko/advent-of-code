@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use constant INPUT_PATH => "../inputs/day01.txt";
+
+# sums up all the calories for each elf
+sub sum_calories {
+	my @max = ();
+	my $current = 0;
+   	open(my $FI, "<", INPUT_PATH) or die "Unable to open file ".INPUT_PATH.": $!.\n";
+	while (<$FI>) {
+		chomp;
+		if (/^$/) {
+			push @max, $current;
+			$current = 0;
+		} else {
+			$current += $_;
+		}
+	}
+	close($FI);
+
+	my @sorted = reverse sort { $a <=> $b } @max;
+
+	return @sorted;
+}
+
+sub part_one {
+	my @max = sum_calories();
+
+	return $max[0];
+}
+
+sub part_two {
+	my @max = sum_calories();
+
+	return $max[0] + $max[1] + $max[2];
+}
+
+my $alpha = part_one();
+print "part one: $alpha\n";
+
+my $bravo = part_two();
+print "part two: $bravo\n";
