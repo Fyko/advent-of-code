@@ -46,7 +46,7 @@ sub part_two {
 		my @mapped = map { exists $digits{$_} ? $digits{$_} : $_ } @numbers;
 		my $formatted = $mapped[0] * 10 + $mapped[-1];
 		$sum += $formatted;
-		print "(@numbers)->(@mapped)->($formatted)\n";
+		# print "(@numbers)->(@mapped)->($formatted)\n";
 	}
 	close($FI);
 
