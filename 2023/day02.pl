@@ -54,13 +54,12 @@ sub part_one {
 sub part_two {
 	my $sum = 0;
 
-   	open(my $FI, "<", INPUT_PATH) or die "Unable to open file ".INPUT_PATH.": $!.\n";
-	while (<$FI>) {
-		chomp;
-		my ($game_number, $reds, $greens, $blues) = match_games($_);
+   	my $lines = open_file();
+	while (defined(my $line = $lines->())) {
+		chomp $line;
+		my ($game_number, $reds, $greens, $blues) = match_games($line);
 		$sum += (max @$reds) * (max @$greens) * (max @$blues);
 	}
-	close($FI);
 
 	return $sum;
 }
