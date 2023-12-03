@@ -1,0 +1,10 @@
+-b -bext='/'
+-pt=2
+-l=140
+-i=4
+-sbt=2
+-bt=0
+-bbt=0
+-ce
+-vtc=3
+-sot
