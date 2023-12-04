@@ -2,27 +2,13 @@
 
 use strict;
 use warnings;
-
-use constant INPUT_PATH => "./input.txt";
-
-sub open_file {
-    open(my $FI, "<", INPUT_PATH) or die "Unable to open file " . INPUT_PATH . ": $!.\n";
-    return sub {
-        if (my $line = <$FI>) {
-            return $line;
-        }
-        else {
-            close($FI);
-            return;
-        }
-    };
-}
+use lib '../../lib';
+use AOC::Base qw(main);
 
 sub read_cards {
     my @cards = ();
-    my $lines = open_file();
-    while (defined(my $line = $lines->())) {
-        chomp $line;
+    my @lines = @_;
+    foreach my $line (@lines) {
         my ($card_number, $winners, $ours) = $line =~ /Card\s+(\d+):\s+([\d\s]+)\|\s+([\d\s]+)/;
 
         my @winners = split /\s+/, $winners;
@@ -39,12 +25,11 @@ sub read_cards {
 }
 
 sub part_one {
-    my $sum    = 0;
-    # my %cards = read_cards();
-    my @cards = read_cards();
+    my (@lines) = @_;
 
+    my $sum    = 0;
+    my @cards = read_cards(@lines);
     while (my ($card_number, $count) = each @cards) {
-    # while (my $card = shift @cards) {
         next if $count == 0;
 
         my $points = ($count > 1) ? 2 ** ($count - 1) : 1;
@@ -54,12 +39,11 @@ sub part_one {
     return $sum;
 }
 
-my $alpha = part_one();
-print "part one: $alpha\n";
-
 sub part_two {
+    my (@lines) = @_;
+
     my $sum    = 0;
-    my @cards = read_cards();
+    my @cards = read_cards(@lines);
 
     # stores the cards we've already seen so we dont have to recalculate
     my %store = ();
@@ -78,5 +62,4 @@ sub part_two {
     return $sum;
 }
 
-my $bravo = part_two();
-print "part two: $bravo\n";
+main(\&part_one, \&part_two);

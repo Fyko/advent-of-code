@@ -2,17 +2,8 @@
 
 use strict;
 use warnings;
-
-use constant INPUT_PATH => "./input.txt";
-
-sub read_lines {
-    open(my $FI, "<", INPUT_PATH)
-      or die "Unable to open file " . INPUT_PATH . ": $!.\n";
-    my @lines = map { chomp; $_ } <$FI>;
-    close($FI);
-
-    return @lines;
-}
+use lib '../../lib';
+use AOC::Base qw(main);
 
 sub match_part_number {
     my ($value, $x, $y, $gears, @lines) = @_;
@@ -39,21 +30,17 @@ sub match_part_number {
 my %gears = ();
 
 sub part_one {
+    my (@lines) = @_;
     my $sum    = 0;
-    my @lines  = read_lines();
     my @angles = ([ 1, 1 ], [ 1, -1 ], [ -1, 1 ], [ -1, -1 ], [ 1, 0 ], [ -1, 0 ], [ 0, 1 ], [ 0, -1 ]);
 
     # iter over each line of the symbols
     while (my ($iline, $line) = each @lines) {
-        print stderr "$iline: $line\n";
-
         while ($line =~ /(\d+)/g) {
           outer: foreach my $col ($-[0] .. $+[0] - 1) {
                 # look in every dirction
                 foreach my $angle (@angles) {
                     my $match = match_part_number($1, $col + @{$angle}[1], $iline + @{$angle}[0], \%gears, @lines);
-
-                    print stderr "Num: $1, Col: $col, iLine: $iline, Angle: [@$angle], Match: $match\n";
 
                     if ($match) {
                         $sum += $1;
@@ -77,8 +64,4 @@ sub part_two {
     return $sum;
 }
 
-my $alpha = part_one();
-print "part one: $alpha\n";
-
-my $bravo = part_two();
-print "part two: $bravo\n";
+main(\&part_one, \&part_two);

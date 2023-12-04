@@ -2,34 +2,33 @@
 
 use strict;
 use warnings;
-use experimental 'builtin';
-use builtin 'indexed';
+use builtin qw(indexed);
 
-use constant INPUT_PATH => "./input.txt";
+use lib '../../lib';
+use AOC::Base qw(main);
 
 sub part_one {
+    my (@lines) = @_;
+
     my $sum = 0;
-    open(my $FI, "<", INPUT_PATH) or die "Unable to open file " . INPUT_PATH . ": $!.\n";
-    while (<$FI>) {
-        chomp;
-        my @numbers = $_ =~ /(\d)/g;
+    foreach my $line (@lines) {
+        my @numbers = $line =~ /(\d)/g;
         my $formatted = $numbers[0] * 10 + $numbers[-1];
         $sum += $formatted;
     }
-    close($FI);
 
     return $sum;
 }
 
 sub part_two {
+    my (@lines) = @_;
+
     my @digits = qw(zero one two three four five six seven eight nine);
     my %digits = reverse indexed @digits;
     my $regex  = join('|', '\d', %digits);
 
     my $sum = 0;
-    open(my $FI, "<", INPUT_PATH) or die "Unable to open file " . INPUT_PATH . ": $!.\n";
-    while (<$FI>) {
-        chomp;
+    foreach my $line (@lines) {
         my ($first) = /($regex)/;
         my ($last)  = /.*($regex)/;
         for ($first, $last) {
@@ -42,8 +41,4 @@ sub part_two {
     return $sum;
 }
 
-my $alpha = part_one();
-print "part one: $alpha\n";
-
-my $bravo = part_two();
-print "part two: $bravo\n";
+main(\&part_one, \&part_two);

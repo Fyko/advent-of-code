@@ -2,25 +2,14 @@
 
 use strict;
 use warnings;
+use lib '../../lib';
+use AOC::Base qw(main);
 use List::Util 'max';
 
 use constant INPUT_PATH => "./input.txt";
 use constant RED_LIMIT   => 12;
 use constant GREEN_LIMIT => 13;
 use constant BLUE_LIMIT  => 14;
-
-sub open_file {
-    open(my $FI, "<", INPUT_PATH) or die "Unable to open file " . INPUT_PATH . ": $!.\n";
-    return sub {
-        if (my $line = <$FI>) {
-            return $line;
-        }
-        else {
-            close($FI);
-            return;
-        }
-    };
-}
 
 sub match_games {
     my $line          = shift;
@@ -35,11 +24,10 @@ sub match_games {
 }
 
 sub part_one {
-    my $sum = 0;
+    my (@lines) = @_;
 
-    my $lines = open_file();
-    while (defined(my $line = $lines->())) {
-        chomp $line;
+    my $sum = 0;
+    foreach my $line (@lines) {
         my ($game_number, $reds, $greens, $blues) = match_games($line);
 
         # skip "impossible" games
@@ -53,11 +41,10 @@ sub part_one {
 }
 
 sub part_two {
-    my $sum = 0;
+    my (@lines) = @_;
 
-    my $lines = open_file();
-    while (defined(my $line = $lines->())) {
-        chomp $line;
+    my $sum = 0;
+    foreach my $line (@lines) {
         my ($game_number, $reds, $greens, $blues) = match_games($line);
         $sum += (max @$reds) * (max @$greens) * (max @$blues);
     }
@@ -65,8 +52,4 @@ sub part_two {
     return $sum;
 }
 
-my $alpha = part_one();
-print "part one: $alpha\n";
-
-my $bravo = part_two();
-print "part two: $bravo\n";
+main(\&part_one, \&part_two);
