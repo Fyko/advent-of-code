@@ -1,10 +1,9 @@
 #!/usr/bin/perl
-# cpanm Array::Utils
 
 use strict;
 use warnings;
 
-use constant INPUT_PATH => "../inputs/day04.txt";
+use constant INPUT_PATH => "./input.txt";
 
 sub open_file {
     open(my $FI, "<", INPUT_PATH) or die "Unable to open file " . INPUT_PATH . ": $!.\n";

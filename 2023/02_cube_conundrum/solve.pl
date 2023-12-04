@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use List::Util 'max';
 
-use constant INPUT_PATH  => "../inputs/day02.txt";
+use constant INPUT_PATH => "./input.txt";
 use constant RED_LIMIT   => 12;
 use constant GREEN_LIMIT => 13;
 use constant BLUE_LIMIT  => 14;

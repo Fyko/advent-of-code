@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use constant INPUT_PATH => "../inputs/day03.txt";
+use constant INPUT_PATH => "./input.txt";
 
 sub read_lines {
     open(my $FI, "<", INPUT_PATH)

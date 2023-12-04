@@ -5,7 +5,7 @@ use warnings;
 use experimental 'builtin';
 use builtin 'indexed';
 
-use constant INPUT_PATH => "../inputs/day01.txt";
+use constant INPUT_PATH => "./input.txt";
 
 sub part_one {
     my $sum = 0;
