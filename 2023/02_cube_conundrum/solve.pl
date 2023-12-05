@@ -6,7 +6,7 @@ use lib '../../lib';
 use AOC::Base qw(main);
 use List::Util 'max';
 
-use constant INPUT_PATH => "./input.txt";
+use constant INPUT_PATH  => "./input.txt";
 use constant RED_LIMIT   => 12;
 use constant GREEN_LIMIT => 13;
 use constant BLUE_LIMIT  => 14;
@@ -17,10 +17,10 @@ sub match_games {
     my %colors        = (red => [], green => [], blue => []);
 
     while ($line =~ /(\d+)\s+(red|green|blue)/g) {
-        push @{ $colors{$2} }, $1;
+        push @{ $colors{ $2 } }, $1;
     }
 
-    return ($game_number, @colors{qw(red green blue)});
+    return ($game_number, @colors{ qw(red green blue) });
 }
 
 sub part_one {

@@ -5,7 +5,7 @@ use warnings;
 use Data::Dumper;
 use lib '../../lib';
 use List::Util qw(first min max);
-use AOC::Base qw(main);
+use AOC::Base  qw(main);
 
 sub parse_almanac {
     my ($input) = @_;
@@ -72,14 +72,14 @@ sub part_two {
             my ($destination, $source, $length) = split /\s/, $range;
             push @sources, $source;
 
-            my $outval = $destination + ($value - $source);
+            my $outval  = $destination + ($value - $source);
             my $outskip = ($source + $length - 1) - $value;
 
             return $outval, $outskip if $value >= $source && $value < $source + $length;
         }
 
         my @sorted_sources = sort { $a <=> $b } @sources;
-        my $skip = first { $_ > $value } @sorted_sources;
+        my $skip           = first { $_ > $value } @sorted_sources;
         $skip = "inf" if !defined $skip;
 
         return $value, $skip;
@@ -87,7 +87,7 @@ sub part_two {
 
     my $best = "inf";
     for (my $i = 0 ; $i < @$seed_ranges ; $i += 2) {
-        my ($start, $length) = @{$seed_ranges}[$i, $i + 1];
+        my ($start, $length) = @{ $seed_ranges }[$i, $i + 1];
         my $skip_window = $length;
 
         for (my $offset = 0 ; $offset < $length ; $offset += max(1, $skip_window)) {
@@ -96,7 +96,7 @@ sub part_two {
 
             foreach my $segment (@$segments) {
                 my ($new_value, $skip) = determine_range_value_skip($value, @$segment);
-                $value = $new_value;
+                $value       = $new_value;
                 $skip_window = min($skip, $skip_window) if $skip < $length - $offset;
             }
             $best = min($best, $value);

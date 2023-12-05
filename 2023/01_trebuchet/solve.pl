@@ -12,7 +12,7 @@ sub part_one {
 
     my $sum = 0;
     foreach my $line (@lines) {
-        my @numbers = $line =~ /(\d)/g;
+        my @numbers   = $line =~ /(\d)/g;
         my $formatted = $numbers[0] * 10 + $numbers[-1];
         $sum += $formatted;
     }
@@ -32,7 +32,7 @@ sub part_two {
         my ($first) = /($regex)/;
         my ($last)  = /.*($regex)/;
         for ($first, $last) {
-            $_ = $digits{$_} if !/\d/;
+            $_ = $digits{ $_ } if !/\d/;
         }
         $sum += "$first$last";
     }
