@@ -22,7 +22,9 @@ our @EXPORT_OK = (@{ $EXPORT_TAGS{ 'all' } });
 
 # iterates over the lines of a file, returning a closure
 sub iter_file {
-    open(my $FI, "<", "./input") or die "Unable to open input file: $!.\n";
+    my ($dir) = @_;
+
+    open(my $FI, "<", "./2023/$dir/input") or die "Unable to open input file: $!.\n";
     return sub {
         if (my $line = <$FI>) {
             return $line;
@@ -35,7 +37,9 @@ sub iter_file {
 
 # reads the lines of a file into an array
 sub read_lines {
-    open(my $FI, "<", "./input") or die "Unable to open input file: $!.\n";
+    my ($dir) = @_;
+
+    open(my $FI, "<", "./2023/$dir/input") or die "Unable to open input file: $!.\n";
     my @lines = map { chomp; $_ } <$FI>;
     close($FI);
 
@@ -45,9 +49,9 @@ sub read_lines {
 # main function for running the advent of code
 # provide `bench` when running cli to benchmark
 sub main {
-    my ($alpha, $bravo) = @_;
+    my ($dir, $alpha, $bravo) = @_;
 
-    my @input = read_lines();
+    my @input = read_lines($dir);
     say "part one: " . colored(['bold green'], $alpha->(@input));
     say "part two: " . colored(['bold green'], $bravo->(@input));
 

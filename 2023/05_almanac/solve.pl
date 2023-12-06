@@ -2,8 +2,9 @@
 
 use strict;
 use warnings;
+use lib './lib';
+
 use Data::Dumper;
-use lib '../../lib';
 use List::Util qw(first min max);
 use AOC::Base  qw(main);
 
@@ -106,4 +107,4 @@ sub part_two {
     return $best;
 }
 
-main(\&part_one, \&part_two);
+main("05_almanac", \&part_one, \&part_two);

@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 use builtin qw(indexed);
+use lib './lib';
 
-use lib '../../lib';
 use AOC::Base qw(main);
 
 sub part_one {
@@ -28,7 +28,7 @@ sub part_two {
     my $regex  = join('|', '\d', %digits);
 
     my $sum = 0;
-    foreach my $line (@lines) {
+    while (@lines) {
         my ($first) = /($regex)/;
         my ($last)  = /.*($regex)/;
         for ($first, $last) {
@@ -36,9 +36,8 @@ sub part_two {
         }
         $sum += "$first$last";
     }
-    close($FI);
 
     return $sum;
 }
 
-main(\&part_one, \&part_two);
+main("01_trebuchet", \&part_one, \&part_two);

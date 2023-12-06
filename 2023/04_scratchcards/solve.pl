@@ -2,7 +2,8 @@
 
 use strict;
 use warnings;
-use lib '../../lib';
+use lib './lib';
+
 use AOC::Base qw(main);
 
 sub read_cards {
@@ -62,4 +63,4 @@ sub part_two {
     return $sum;
 }
 
-main(\&part_one, \&part_two);
+main("04_scratchcards", \&part_one, \&part_two);

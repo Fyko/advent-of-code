@@ -2,7 +2,8 @@
 
 use strict;
 use warnings;
-use lib '../../lib';
+use lib './lib';
+
 use AOC::Base qw(main);
 
 sub match_part_number {
@@ -65,4 +66,4 @@ sub part_two {
     return $sum;
 }
 
-main(\&part_one, \&part_two);
+main("03_gear_ratios", \&part_one, \&part_two);

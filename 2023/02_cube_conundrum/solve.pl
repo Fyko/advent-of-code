@@ -2,7 +2,8 @@
 
 use strict;
 use warnings;
-use lib '../../lib';
+use lib './lib';
+
 use AOC::Base qw(main);
 use List::Util 'max';
 
@@ -52,4 +53,4 @@ sub part_two {
     return $sum;
 }
 
-main(\&part_one, \&part_two);
+main("02_cube_conundrum", \&part_one, \&part_two);
