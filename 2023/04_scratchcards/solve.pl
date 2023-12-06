@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -d:NYTProf
 
 use strict;
 use warnings;
