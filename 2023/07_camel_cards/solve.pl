@@ -6,7 +6,8 @@ use feature 'say';
 use lib './lib';
 
 use Data::Dumper;
-use AOC::Base qw(main);
+use Scalar::Util qw(looks_like_number);
+use AOC::Base    qw(main);
 
 use constant {
     RANK_HIGH_CARD       => 1,
@@ -60,14 +61,6 @@ sub part_one {
         'Q' => 12,
         'J' => 11,
         'T' => 10,
-        '9' => 9,
-        '8' => 8,
-        '7' => 7,
-        '6' => 6,
-        '5' => 5,
-        '4' => 4,
-        '3' => 3,
-        '2' => 2,
     );
 
     while (my ($rank, $hands) = each %chunks) {
@@ -77,7 +70,9 @@ sub part_one {
 
             my $i = 0;
             while ($i < scalar @as) {
-                my $cmp = $card_rankings{ $as[$i] } <=> $card_rankings{ $bs[$i] };
+                my $as  = $as[$i];
+                my $bs  = $bs[$i];
+                my $cmp = (looks_like_number($as) ? $as : $card_rankings{ $as }) <=> (looks_like_number($bs) ? $bs : $card_rankings{ $bs });
                 return $cmp if $cmp != 0;
                 ++$i;
             }
@@ -86,11 +81,11 @@ sub part_one {
         } @{ $chunks{ $rank } };
     }
 
-    # say Dumper \%chunks;
+    say Dumper \%chunks;
 
     my @sorted_hands = map { @{ $chunks{ $_ } } } sort { $a <=> $b } keys %chunks;
 
-    # say Dumper \@sorted_hands;
+    say Dumper \@sorted_hands;
 
     my $sum = 0;
     while (my ($index, $hand) = each @sorted_hands) {
