@@ -35,7 +35,7 @@ sub part_one {
             $rank = RANK_FIVE_OF_A_KIND;
         } elsif (grep { $_ == 4 } values %count) {
             $rank = RANK_FOUR_OF_A_KIND;
-        } elsif (grep { $_ == 3 } values %count && grep { $_ == 2 } values %count) {
+        } elsif ((grep { $_ == 3 } values %count) && (grep { $_ == 2 } values %count)) {
             $rank = RANK_FULL_HOUSE;
         } elsif (grep { $_ == 3 } values %count) {
             $rank = RANK_THREE_OF_A_KIND;
