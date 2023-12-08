@@ -29,11 +29,11 @@ sub compute_hand_rank {
         $count{ $card }++;
     }
 
-    my @counts = @count{ sort { $count{$b} <=> $count{$a} } keys %count };
+    my @counts = @count{ sort { $count{ $b } <=> $count{ $a } } keys %count };
     my ($x, $y) = @counts;
 
-    return RANK_FIVE_OF_A_KIND if $jokers == 5 || $x + $jokers == 5;
-    return RANK_FOUR_OF_A_KIND if $x + $jokers == 4;
+    return RANK_FIVE_OF_A_KIND  if $jokers == 5 || $x + $jokers == 5;
+    return RANK_FOUR_OF_A_KIND  if $x + $jokers == 4;
     return RANK_FULL_HOUSE      if $x + $jokers == 3 && $y == 2;
     return RANK_THREE_OF_A_KIND if $x + $jokers == 3 && $y != 2;
     return RANK_TWO_PAIR        if $x + $jokers == 2 && $y == 2;
@@ -56,9 +56,10 @@ sub create_card_groups {
 
             my $i = 0;
             while ($i < scalar @as) {
-                my $as  = $as[$i];
-                my $bs  = $bs[$i];
-                my $cmp = (looks_like_number($as) ? $as : $face_rankings->{ $as }) <=> (looks_like_number($bs) ? $bs : $face_rankings->{ $bs });
+                my $as = $as[$i];
+                my $bs = $bs[$i];
+                my $cmp =
+                  (looks_like_number($as) ? $as : $face_rankings->{ $as }) <=> (looks_like_number($bs) ? $bs : $face_rankings->{ $bs });
                 return $cmp if $cmp != 0;
                 ++$i;
             }
