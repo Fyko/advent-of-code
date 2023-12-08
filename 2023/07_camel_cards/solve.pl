@@ -29,8 +29,7 @@ sub compute_hand_rank {
         $count{ $card }++;
     }
 
-    my @counts = @count{ sort { $count{ $b } <=> $count{ $a } } keys %count };
-    my ($x, $y) = @counts;
+    my ($x, $y) = @count{ sort { $count{ $b } <=> $count{ $a } } keys %count };
 
     return RANK_FIVE_OF_A_KIND  if $jokers == 5 || $x + $jokers == 5;
     return RANK_FOUR_OF_A_KIND  if $x + $jokers == 4;
