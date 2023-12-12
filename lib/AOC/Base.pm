@@ -13,6 +13,7 @@ our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = (
     'all' => [qw(
           iter_file
+          read_lines
           main
         )
     ],
